@@ -1,31 +1,30 @@
+import React from "react";
 import { FileUpload } from "primereact/fileupload";
-import { Toast } from "primereact/toast";
-import { useRef } from "react";
 
-const DeckUpload = () => {
-  const toast = useRef<Toast>(null);
+export default function CustomUploadDemo() {
+  const customBase64Uploader = async (event) => {
+    // convert file to base64 encoded
+    const file = event.files[0];
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
 
-  const onUpload = () => {
-    toast.current?.show({
-      severity: "success",
-      summary: "Success",
-      detail: "File Uploaded",
-    });
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+      const base64data = reader.result;
+    };
   };
 
   return (
-    <div>
-      <Toast ref={toast} />
+    <div className="card flex justify-content-center">
       <FileUpload
         mode="basic"
         name="demo[]"
         url="/api/upload"
         accept="image/*"
-        maxFileSize={1000000}
-        onUpload={onUpload}
+        customUpload
+        uploadHandler={customBase64Uploader}
       />
     </div>
   );
-};
-
-export default DeckUpload;
+}
