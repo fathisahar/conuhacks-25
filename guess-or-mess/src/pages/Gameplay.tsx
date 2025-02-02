@@ -115,7 +115,7 @@ const Gameplay: React.FC = () => {
     }
   }, [currentCardIndex, cards, isFlipped]);
 
-  const currentCard = cards[currentCardIndex] ?? { question: "Loading...", answer: "" };
+  const currentCard = cards[currentCardIndex];
 
   useEffect(() => {
     return () => {
@@ -170,7 +170,7 @@ const Gameplay: React.FC = () => {
   const handleAnswerSelection = (index: number) => {
     setSelectedAnswer(index);
     if (index === correctIndex && gameId && playerId) {
-      incrementPlayerScore(gameId, playerId);
+      incrementPlayerScore(playerId);
     }
   };
 
