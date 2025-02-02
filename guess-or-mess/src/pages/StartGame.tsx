@@ -218,15 +218,12 @@ const parseAnkiDeck = (deckData: string) => {
 function StartGame() {
   const navigate = useNavigate();
   const [gameId, setGameId] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
   const [deckId, setDeckId] = useState<string>("");
 
   useEffect(() => {
     const storedGameId = Cookies.get("gameId");
-    const storedUsername = Cookies.get("username");
 
     setGameId(storedGameId || null);
-    setUsername(storedUsername || null);
   }, []);
 
   const handleGameplay = () => {

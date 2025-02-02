@@ -202,7 +202,7 @@ export const listenToCurrentCard = (gameId: string, callback: (currentCard: numb
   return unsub;
 };
 
-export const incrementPlayerScore = async (gameId: string, playerPath: string) => {
+export const incrementPlayerScore = async (playerPath: string) => {
   if (!playerPath) return;
 
   const playerRefId = playerPath.split("/").pop(); // Extract the player ID

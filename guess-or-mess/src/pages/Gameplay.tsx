@@ -170,7 +170,7 @@ const Gameplay: React.FC = () => {
   const handleAnswerSelection = (index: number) => {
     setSelectedAnswer(index);
     if (index === correctIndex && gameId && playerId) {
-      incrementPlayerScore(gameId, playerId);
+      incrementPlayerScore(playerId);
     }
   };
 
