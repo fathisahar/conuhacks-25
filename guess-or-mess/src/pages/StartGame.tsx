@@ -7,6 +7,9 @@ import * as cheerio from "cheerio";
 import GameCode from "../components/GameCode";
 import splash from "./../assets/splash.svg";
 import waitSplash from "./../assets/wait-splash.svg";
+import {
+  incrementCurrentCard,
+} from "../firebase/firestore";
 
 // Define the structure of a Card
 interface Card {
@@ -229,11 +232,17 @@ function StartGame() {
     setUsername(storedUsername || null);
   }, []);
 
-  const handleGameplay = () => {
-    if (gameId && deckId) {
+  const handleGameplay = async () => {
+    if (!gameId || !deckId) return; // Ensure both values exist
+  
+    try {
+      await incrementCurrentCard(gameId);
       navigate(`/gameplay/${deckId}/${gameId}`);
+    } catch (error) {
+      console.error("Error incrementing current card:", error);
     }
   };
+  
 
   return (
     <div className="h-full">
